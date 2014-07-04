@@ -1,0 +1,35 @@
+<h1>
+  Show page for book
+</h1>
+
+<%= @book.title %>
+
+<ul>
+  <% @book.reviews.each do |review| %>
+    <li>
+      <%= review.rating %>
+    </li>
+  <% end %>
+</ul>
+
+<%= form_for [@book, @review] do |f| %>
+  <% if @review.errors.any? %>
+    <p> There were errors with your submission:</p>
+    <ul>
+      <% @review.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <p>
+    <%= f.label :rating, 'On a scale of 1 - 5, please rate this book.' %>
+    <%= f.text_field :rating %><br />
+  </p>
+  <p>
+    <%= f.label :body, 'Add a comment or some such' %><br />
+    <%= f.text_field :body %>
+  </p>
+  <p>
+    <%= f.submit "Submit" %>
+  </p>
+<% end %>
